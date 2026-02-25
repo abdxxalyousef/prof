@@ -1,0 +1,148 @@
+import BlurFade from "@/components/magicui/blur-fade";
+import BlurFadeText from "@/components/magicui/blur-fade-text";
+import { Avatar } from "@/components/ui/avatar";
+import { DATA } from "@/data/resume";
+import Link from "next/link";
+import Markdown from "react-markdown";
+import ContactSection from "@/components/section/contact-section";
+import HackathonsSection from "@/components/section/hackathons-section";
+import { ArrowUpRight } from "lucide-react";
+import { PixelImage } from "@/registry/magicui/pixel-image";
+
+const BLUR_FADE_DELAY = 0.04;
+
+export default function Page() {
+  return (
+    <main className="min-h-dvh flex flex-col gap-14 relative interactive-page">
+      <div className="fx-particles" aria-hidden>
+        <span className="fx-particle" style={{ left: "6%" }} />
+        <span className="fx-particle" />
+        <span className="fx-particle" />
+        <span className="fx-particle" />
+        <span className="fx-particle" />
+      </div>
+
+      <section id="hero" className="relative z-10">
+        <div className="mx-auto w-full max-w-3xl space-y-8 interactive-lift rounded-2xl px-4 py-4 md:px-6 md:py-6">
+          <div className="gap-2 gap-y-6 flex flex-col md:flex-row justify-between">
+            <div className="gap-2 flex flex-col order-2 md:order-1">
+              <BlurFadeText
+                delay={BLUR_FADE_DELAY}
+                className="text-3xl font-semibold tracking-tighter sm:text-4xl lg:text-5xl"
+                yOffset={8}
+                text={`Hi, I'm ${DATA.name.split(" ")[0]}`}
+              />
+              <BlurFadeText
+                className="text-muted-foreground max-w-[600px] md:text-lg lg:text-xl"
+                delay={BLUR_FADE_DELAY}
+                text={DATA.description}
+              />
+            </div>
+            <BlurFade delay={BLUR_FADE_DELAY} className="order-1 md:order-2">
+              <div className="hero-avatar-shell interactive-lift">
+                <Avatar className="size-24 md:size-32 border rounded-full shadow-lg ring-2 ring-background/70 interactive-avatar">
+                  <PixelImage
+                    src={DATA.avatarUrl}
+                    alt={DATA.name}
+                    customGrid={{ rows: 4, cols: 6 }}
+                  />
+                </Avatar>
+              </div>
+            </BlurFade>
+          </div>
+        </div>
+      </section>
+      <section id="about" className="relative z-10">
+        <div className="flex min-h-0 flex-col gap-y-4 interactive-lift rounded-2xl p-2 -m-2">
+          <BlurFade delay={BLUR_FADE_DELAY * 3}>
+            <h2 className="text-xl font-bold">About</h2>
+          </BlurFade>
+          <BlurFade delay={BLUR_FADE_DELAY * 4}>
+            <div className="prose max-w-full text-pretty font-sans leading-relaxed text-muted-foreground dark:prose-invert">
+              <Markdown>
+                {DATA.summary}
+              </Markdown>
+            </div>
+          </BlurFade>
+        </div>
+      </section>
+      <section id="education" className="relative z-10">
+        <div className="flex min-h-0 flex-col gap-y-6 interactive-lift rounded-2xl p-2 -m-2">
+          <BlurFade delay={BLUR_FADE_DELAY * 7}>
+            <h2 className="text-xl font-bold">Education</h2>
+          </BlurFade>
+          <div className="flex flex-col gap-8">
+            {DATA.education.slice(0, 1).map((education, index) => (
+              <BlurFade
+                key={education.school}
+                delay={BLUR_FADE_DELAY * 8 + index * 0.05}
+              >
+                <Link
+                  href={education.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-x-3 justify-between group interactive-lift rounded-xl p-2 -m-2"
+                >
+                  <div className="flex items-center gap-x-3 flex-1 min-w-0">
+                    {education.logoUrl ? (
+                      <div className="size-8 md:size-10 p-1 border rounded-full shadow ring-2 ring-border overflow-hidden object-contain flex-none">
+                        <PixelImage
+                          src={education.logoUrl}
+                          alt={education.school}
+                          customGrid={{ rows: 4, cols: 4 }}
+                        />
+                      </div>
+                    ) : (
+                      <div className="size-8 md:size-10 p-1 border rounded-full shadow ring-2 ring-border bg-muted flex-none" />
+                    )}
+                    <div className="flex-1 min-w-0 flex flex-col gap-0.5">
+                      <div className="font-semibold leading-none flex items-center gap-2">
+                        {education.school}
+                        <ArrowUpRight className="h-3.5 w-3.5 text-muted-foreground opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200" aria-hidden />
+                      </div>
+                      <div className="font-sans text-sm text-muted-foreground">
+                        {education.degree}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-1 text-xs tabular-nums text-muted-foreground text-right flex-none">
+                    <span>
+                      {education.start} - {education.end}
+                    </span>
+                  </div>
+                </Link>
+              </BlurFade>
+            ))}
+          </div>
+        </div>
+      </section>
+      <section id="skills" className="relative z-10">
+        <div className="flex min-h-0 flex-col gap-y-4 interactive-lift rounded-2xl p-2 -m-2">
+          <BlurFade delay={BLUR_FADE_DELAY * 9}>
+            <h2 className="text-xl font-bold">Skills</h2>
+          </BlurFade>
+          <div className="flex flex-wrap gap-2">
+            {DATA.skills.map((skill, id) => (
+              <BlurFade key={skill.name} delay={BLUR_FADE_DELAY * 10 + id * 0.05}>
+                <div className="border bg-background border-border ring-2 ring-border/20 rounded-xl h-8 w-fit px-4 flex items-center gap-2 interactive-chip">
+                  {skill.icon && <skill.icon className="size-4 rounded overflow-hidden object-contain" />}
+                  <span className="text-foreground text-sm font-medium">{skill.name}</span>
+                </div>
+              </BlurFade>
+            ))}
+          </div>
+        </div>
+      </section>
+      <section id="My achievements" className="relative z-10">
+        <BlurFade delay={BLUR_FADE_DELAY * 13}>
+          <HackathonsSection />
+        </BlurFade>
+      </section>
+      <section id="contact" className="relative z-10">
+        <BlurFade delay={BLUR_FADE_DELAY * 16}>
+          <ContactSection />
+        </BlurFade>
+      </section>
+    </main>
+  );
+}
