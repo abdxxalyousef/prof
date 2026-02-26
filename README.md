@@ -40,6 +40,22 @@ Optional local preview:
 pnpm cf:preview
 ```
 
+## Auto Deploy to Cloudflare from GitHub
+
+This repo now includes a GitHub Actions workflow at `.github/workflows/deploy-cloudflare.yml`.
+It deploys automatically on every push to `main`.
+
+Before it can deploy, add these repository secrets in GitHub:
+
+- `CLOUDFLARE_API_TOKEN` (with Workers Scripts edit permissions)
+- `CLOUDFLARE_ACCOUNT_ID`
+
+After adding secrets:
+
+1. Push to `main` (or run the workflow manually from Actions tab)
+2. Open **Actions** in GitHub and confirm job **Deploy to Cloudflare** succeeds
+3. Your Worker service name is taken from `wrangler.jsonc` (`portfolio-main`)
+
 # Features
 
 - Setup only takes a few minutes by editing the [single config file](./src/data/resume.tsx)
