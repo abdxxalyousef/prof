@@ -31,6 +31,17 @@ export const FlickeringGrid: React.FC<FlickeringGridProps> = ({
   const [isInView, setIsInView] = useState(false)
   const [canvasSize, setCanvasSize] = useState({ width: 0, height: 0 })
   const [resolvedColor, setResolvedColor] = useState<string>("rgb(0, 0, 0)")
+  const [isLowEndDevice, setIsLowEndDevice] = useState(false)
+
+  useEffect(() => {
+    if (typeof window === "undefined") return
+
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    const hardwareConcurrency = navigator.hardwareConcurrency ?? 4
+    const deviceMemory = (navigator as Navigator & { deviceMemory?: number }).deviceMemory ?? 4
+
+    setIsLowEndDevice(prefersReducedMotion || hardwareConcurrency <= 4 || deviceMemory <= 4)
+  }, [])
 
   const resolveColor = useCallback((colorValue: string | undefined): string => {
     if (typeof window === "undefined") {
@@ -96,7 +107,7 @@ export const FlickeringGrid: React.FC<FlickeringGridProps> = ({
 
   const setupCanvas = useCallback(
     (canvas: HTMLCanvasElement, width: number, height: number) => {
-      const dpr = window.devicePixelRatio || 1
+      const dpr = Math.min(window.devicePixelRatio || 1, isLowEndDevice ? 1 : 1.25)
       canvas.width = width * dpr
       canvas.height = height * dpr
       canvas.style.width = `${width}px`
@@ -111,15 +122,19 @@ export const FlickeringGrid: React.FC<FlickeringGridProps> = ({
 
       return { cols, rows, squares, dpr }
     },
-    [squareSize, gridGap, maxOpacity]
+    [squareSize, gridGap, maxOpacity, isLowEndDevice]
   )
 
   const updateSquares = useCallback(
     (squares: Float32Array, deltaTime: number) => {
-      for (let i = 0; i < squares.length; i++) {
-        if (Math.random() < flickerChance * deltaTime) {
-          squares[i] = Math.random() * maxOpacity
-        }
+      const mutationCount = Math.max(
+        1,
+        Math.floor(squares.length * flickerChance * deltaTime)
+      )
+
+      for (let i = 0; i < mutationCount; i++) {
+        const index = Math.floor(Math.random() * squares.length)
+        squares[index] = Math.random() * maxOpacity
       }
     },
     [flickerChance, maxOpacity]
@@ -165,6 +180,9 @@ export const FlickeringGrid: React.FC<FlickeringGridProps> = ({
 
     let animationFrameId: number
     let gridParams: ReturnType<typeof setupCanvas>
+    let lastRenderTime = 0
+    const targetFps = isLowEndDevice ? 14 : 24
+    const frameInterval = 1000 / targetFps
 
     const updateCanvasSize = () => {
       const newWidth = width || container.clientWidth
@@ -178,6 +196,13 @@ export const FlickeringGrid: React.FC<FlickeringGridProps> = ({
     let lastTime = 0
     const animate = (time: number) => {
       if (!isInView) return
+
+      if (lastRenderTime !== 0 && time - lastRenderTime < frameInterval) {
+        animationFrameId = requestAnimationFrame(animate)
+        return
+      }
+
+      lastRenderTime = time
 
       const deltaTime = (time - lastTime) / 1000
       lastTime = time
@@ -219,7 +244,7 @@ export const FlickeringGrid: React.FC<FlickeringGridProps> = ({
       resizeObserver.disconnect()
       intersectionObserver.disconnect()
     }
-  }, [setupCanvas, updateSquares, drawGrid, width, height, isInView])
+  }, [setupCanvas, updateSquares, drawGrid, width, height, isInView, isLowEndDevice])
 
   return (
     <div

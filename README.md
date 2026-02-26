@@ -6,6 +6,40 @@
 
 Built with next.js, [shadcn/ui](https://ui.shadcn.com/), and [magic ui](https://magicui.design/), deployed on Vercel.
 
+## Deploy on Cloudflare
+
+This project is configured for Cloudflare using OpenNext + Wrangler.
+
+1. Install dependencies:
+
+   ```bash
+   pnpm install
+   ```
+
+2. Log in to Cloudflare:
+
+   ```bash
+   pnpm wrangler login
+   ```
+
+3. Build for Cloudflare:
+
+   ```bash
+   pnpm cf:build
+   ```
+
+4. Deploy:
+
+   ```bash
+   pnpm cf:deploy
+   ```
+
+Optional local preview:
+
+```bash
+pnpm cf:preview
+```
+
 # Features
 
 - Setup only takes a few minutes by editing the [single config file](./src/data/resume.tsx)

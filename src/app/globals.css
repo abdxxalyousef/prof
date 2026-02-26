@@ -118,26 +118,26 @@
   --pj-scroll: 0px;
   --pj-scroll-progress: 0;
   --pj-fringe-sway: 0deg;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
+  --background: oklch(0.994 0.003 96);
+  --foreground: oklch(0.18 0.012 148);
+  --card: oklch(0.999 0.001 96);
+  --card-foreground: oklch(0.18 0.012 148);
+  --popover: oklch(0.999 0.001 96);
+  --popover-foreground: oklch(0.18 0.012 148);
   --primary: oklch(0.58 0.19 151);
   --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0.015 155);
-  --accent-foreground: oklch(0.2 0.01 260);
+  --secondary: oklch(0.972 0.003 96);
+  --secondary-foreground: oklch(0.2 0.011 148);
+  --muted: oklch(0.958 0.004 96);
+  --muted-foreground: oklch(0.43 0.012 144);
+  --accent: oklch(0.6 0.2 26);
+  --accent-foreground: oklch(0.99 0 0);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.58 0.22 26);
-  --chart-1: oklch(0.58 0.19 151);
-  --chart-2: oklch(0.58 0.22 26);
+  --border: oklch(0.915 0.003 96);
+  --input: oklch(0.915 0.003 96);
+  --ring: oklch(0.6 0.2 26);
+  --chart-1: oklch(0.56 0.18 151);
+  --chart-2: oklch(0.6 0.2 26);
 }
 
 .dark.pj-theme {
@@ -162,6 +162,66 @@
 }
 
 @layer base {
+  :root {
+    view-transition-name: app-theme;
+  }
+
+  ::view-transition-old(app-theme),
+  ::view-transition-new(app-theme) {
+    animation-duration: 680ms;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  :root.theme-transitioning,
+  :root.theme-transitioning body,
+  :root.theme-transitioning .interactive-page,
+  :root.theme-transitioning .interactive-page::after,
+  :root.theme-transitioning .hero-avatar-shell,
+  :root.theme-transitioning .scroll-progress,
+  :root.theme-transitioning .scroll-aura,
+  :root.theme-transitioning .pj-theme-ribbon,
+  :root.theme-transitioning .border,
+  :root.theme-transitioning button,
+  :root.theme-transitioning a,
+  :root.theme-transitioning [role="button"] {
+    transition-property:
+      color,
+      background-color,
+      border-color,
+      outline-color,
+      text-decoration-color,
+      fill,
+      stroke,
+      box-shadow;
+    transition-duration: 680ms;
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  :root.theme-transitioning .fx-particles,
+  :root.theme-transitioning .interactive-page::after,
+  :root.theme-transitioning .hero-avatar-shell,
+  :root.theme-transitioning .pj-theme-ribbon,
+  :root.theme-transitioning .scroll-aura {
+    transition: none !important;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :root.theme-transitioning,
+    :root.theme-transitioning body,
+    :root.theme-transitioning .interactive-page,
+    :root.theme-transitioning .interactive-page::after,
+    :root.theme-transitioning .hero-avatar-shell,
+    :root.theme-transitioning .scroll-progress,
+    :root.theme-transitioning .scroll-aura,
+    :root.theme-transitioning .pj-theme-ribbon,
+    :root.theme-transitioning .border,
+    :root.theme-transitioning button,
+    :root.theme-transitioning a,
+    :root.theme-transitioning [role="button"] {
+      transition-duration: 0ms;
+    }
+  }
+
   * {
     @apply border-border;
   }
@@ -178,12 +238,17 @@
     z-index: 1;
     background:
       radial-gradient(
-        520px circle at var(--pointer-x, 50vw) var(--pointer-y, 0px),
-        color-mix(in oklch, var(--primary) 24%, transparent),
-        transparent 70%
+        500px circle at var(--pointer-x, 50vw) var(--pointer-y, 0px),
+        color-mix(in oklch, var(--primary) 32%, transparent),
+        transparent 66%
+      ),
+      radial-gradient(
+        780px circle at var(--pointer-x, 50vw) var(--pointer-y, 0px),
+        color-mix(in oklch, var(--ring) 16%, transparent),
+        transparent 74%
       );
-    opacity: calc(0.14 + (var(--scroll-progress, 0) * 0.2));
-    transition: opacity 220ms ease;
+    opacity: calc(0.2 + (var(--scroll-progress, 0) * 0.2));
+    transition: opacity 180ms ease;
   }
 
   .interactive-page section {
@@ -204,9 +269,19 @@
       radial-gradient(circle at 16% 12%, color-mix(in oklch, var(--primary) 26%, transparent), transparent 34%),
       radial-gradient(circle at 84% 22%, color-mix(in oklch, var(--ring) 22%, transparent), transparent 40%),
       radial-gradient(circle at 55% 78%, color-mix(in oklch, var(--foreground) 14%, transparent), transparent 42%);
-    filter: blur(24px);
-    opacity: 0.72;
-    animation: ambient-wave 12s ease-in-out infinite;
+    filter: blur(16px);
+    opacity: 0.58;
+    animation: ambient-wave 20s ease-in-out infinite;
+  }
+
+  .perf-lite body::before {
+    opacity: calc(0.2 + (var(--scroll-progress, 0) * 0.18));
+  }
+
+  .perf-lite .interactive-page::after {
+    filter: blur(10px);
+    opacity: 0.42;
+    animation-duration: 26s;
   }
 
   .interactive-lift {
@@ -254,9 +329,19 @@
     height: 10px;
     border-radius: 9999px;
     background: color-mix(in oklch, var(--primary) 70%, transparent);
-    box-shadow: 0 0 24px color-mix(in oklch, var(--primary) 62%, transparent);
-    opacity: 0.56;
-    animation: fx-float-up 9s linear infinite;
+    box-shadow: 0 0 14px color-mix(in oklch, var(--primary) 52%, transparent);
+    opacity: 0.42;
+    animation: fx-float-up 12s linear infinite;
+  }
+
+  .fx-particle:nth-child(n + 4) {
+    display: none;
+  }
+
+  .perf-lite .fx-particle {
+    box-shadow: 0 0 12px color-mix(in oklch, var(--primary) 42%, transparent);
+    opacity: 0.34;
+    animation-duration: 14s;
   }
 
   .fx-particle:nth-child(2) {
@@ -358,6 +443,11 @@
     pointer-events: none;
   }
 
+  .perf-lite .hero-avatar-shell::before {
+    filter: blur(6px);
+    opacity: 0.4;
+  }
+
   .hero-avatar-shell:hover {
     transform: translateY(-3px) scale(1.03);
     filter: saturate(1.08);
@@ -402,8 +492,15 @@
     height: 3px;
     z-index: 95;
     pointer-events: none;
-    background: linear-gradient(90deg, oklch(0.58 0.22 26), oklch(0.58 0.19 151));
-    box-shadow: 0 0 12px color-mix(in oklch, oklch(0.58 0.22 26) 35%, transparent);
+    background: linear-gradient(
+      90deg,
+      oklch(0.58 0.22 26) 0%,
+      color-mix(in oklch, oklch(0.985 0 0) 92%, transparent) 46%,
+      oklch(0.58 0.19 151) 100%
+    );
+    box-shadow:
+      0 0 10px color-mix(in oklch, oklch(0.58 0.22 26) 26%, transparent),
+      0 0 10px color-mix(in oklch, oklch(0.58 0.19 151) 26%, transparent);
     transition: width 120ms linear;
   }
 
@@ -419,12 +516,18 @@
     z-index: 4;
     pointer-events: none;
     transform: translateX(-50%) translateY(clamp(0px, calc(var(--pj-scroll, 0px) * 0.08), 36px));
-    opacity: calc(0.22 + (var(--pj-scroll-progress, 0) * 0.28));
-    filter: blur(20px);
+    opacity: calc(0.2 + (var(--pj-scroll-progress, 0) * 0.24));
+    filter: blur(22px);
     background:
-      radial-gradient(circle at 22% 55%, color-mix(in oklch, oklch(0.58 0.22 26) 26%, transparent), transparent 56%),
-      radial-gradient(circle at 78% 45%, color-mix(in oklch, oklch(0.58 0.19 151) 28%, transparent), transparent 58%);
+      radial-gradient(circle at 22% 55%, color-mix(in oklch, oklch(0.58 0.22 26) 24%, transparent), transparent 58%),
+      radial-gradient(circle at 78% 45%, color-mix(in oklch, oklch(0.58 0.19 151) 26%, transparent), transparent 60%),
+      radial-gradient(circle at 50% 40%, color-mix(in oklch, oklch(0.985 0 0) 14%, transparent), transparent 64%);
     transition: transform 140ms linear, opacity 140ms linear;
+  }
+
+  .perf-lite .scroll-aura {
+    opacity: calc(0.14 + (var(--pj-scroll-progress, 0) * 0.16));
+    filter: blur(14px);
   }
 
   .pj-theme .scroll-progress,
@@ -434,9 +537,10 @@
 
   .pj-theme body {
     background-image:
-      radial-gradient(circle at 12% 10%, color-mix(in oklch, oklch(0.58 0.22 26) 28%, transparent), transparent 35%),
-      radial-gradient(circle at 88% 8%, color-mix(in oklch, oklch(0.58 0.19 151) 30%, transparent), transparent 36%),
-      linear-gradient(120deg, color-mix(in oklch, oklch(0.2 0.01 260) 3%, transparent), transparent 35%);
+      radial-gradient(circle at 10% 12%, color-mix(in oklch, oklch(0.58 0.22 26) 22%, transparent), transparent 38%),
+      radial-gradient(circle at 90% 10%, color-mix(in oklch, oklch(0.58 0.19 151) 24%, transparent), transparent 40%),
+      radial-gradient(circle at 50% 2%, color-mix(in oklch, oklch(0.985 0 0) 12%, transparent), transparent 62%),
+      linear-gradient(125deg, color-mix(in oklch, oklch(0.19 0.01 148) 5%, transparent), transparent 44%);
   }
 
   .pj-theme-ribbon {

@@ -23,7 +23,7 @@ export default function Page() {
       </div>
 
       <section id="hero" className="relative z-10">
-        <div className="mx-auto w-full max-w-3xl space-y-8 interactive-lift rounded-2xl px-4 py-4 md:px-6 md:py-6">
+        <div className="w-full space-y-8 interactive-lift rounded-2xl px-4 py-4 md:px-6 md:py-6">
           <div className="gap-2 gap-y-6 flex flex-col md:flex-row justify-between">
             <div className="gap-2 flex flex-col order-2 md:order-1">
               <BlurFadeText

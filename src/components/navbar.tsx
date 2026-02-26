@@ -11,19 +11,13 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { DATA } from "@/data/resume";
+import { runThemeTransition } from "@/lib/theme-transition";
 
 const PJ_THEME_CLASS = "pj-theme";
 const PJ_THEME_STORAGE_KEY = "portfolio-pj-theme";
 
 export default function Navbar() {
-  const [isPjThemeEnabled, setIsPjThemeEnabled] = useState(() => {
-    if (typeof window === "undefined") {
-      return true;
-    }
-
-    const saved = window.localStorage.getItem(PJ_THEME_STORAGE_KEY);
-    return saved !== "0";
-  });
+  const [isPjThemeEnabled, setIsPjThemeEnabled] = useState(true);
 
   useEffect(() => {
     const root = document.documentElement;
@@ -31,6 +25,7 @@ export default function Navbar() {
     const shouldEnable = saved !== "0";
 
     root.classList.toggle(PJ_THEME_CLASS, shouldEnable);
+    setIsPjThemeEnabled(shouldEnable);
     if (saved === null) {
       localStorage.setItem(PJ_THEME_STORAGE_KEY, "1");
     }
@@ -77,14 +72,16 @@ export default function Navbar() {
     const root = document.documentElement;
     const nextValue = !isPjThemeEnabled;
 
-    root.classList.toggle(PJ_THEME_CLASS, nextValue);
-    localStorage.setItem(PJ_THEME_STORAGE_KEY, nextValue ? "1" : "0");
-    setIsPjThemeEnabled(nextValue);
+    runThemeTransition(() => {
+      root.classList.toggle(PJ_THEME_CLASS, nextValue);
+      localStorage.setItem(PJ_THEME_STORAGE_KEY, nextValue ? "1" : "0");
+      setIsPjThemeEnabled(nextValue);
+    });
   };
 
   return (
     <div className="pointer-events-none fixed inset-x-0 bottom-4 z-30">
-      <Dock className="z-50 pointer-events-auto relative h-14 p-2 w-fit mx-auto flex gap-2 border bg-card/90 backdrop-blur-3xl shadow-[0_0_10px_3px] shadow-primary/5">
+      <Dock className="z-50 pointer-events-auto relative h-14 p-2 w-fit mx-auto flex gap-2 border bg-card/90 backdrop-blur-3xl shadow-[0_0_10px_3px] shadow-primary/5 transition-[background-color,border-color,box-shadow,backdrop-filter] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]">
         {DATA.navbar.map((item) => {
           const isExternal = item.href.startsWith("http");
           return (
@@ -95,7 +92,7 @@ export default function Navbar() {
                   target={isExternal ? "_blank" : undefined}
                   rel={isExternal ? "noopener noreferrer" : undefined}
                 >
-                  <DockIcon className="rounded-3xl cursor-pointer size-full bg-background p-0 text-muted-foreground hover:text-foreground hover:bg-muted backdrop-blur-3xl border border-border transition-colors">
+                  <DockIcon className="rounded-3xl cursor-pointer size-full bg-background p-0 text-muted-foreground hover:text-foreground hover:bg-muted backdrop-blur-3xl border border-border transition-[background-color,color,border-color,box-shadow] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]">
                     <item.icon className="size-full rounded-sm overflow-hidden object-contain" />
                   </DockIcon>
                 </a>
@@ -128,7 +125,7 @@ export default function Navbar() {
                     target={isExternal ? "_blank" : undefined}
                     rel={isExternal ? "noopener noreferrer" : undefined}
                   >
-                    <DockIcon className="rounded-3xl cursor-pointer size-full bg-background p-0 text-muted-foreground hover:text-foreground hover:bg-muted backdrop-blur-3xl border border-border transition-colors">
+                    <DockIcon className="rounded-3xl cursor-pointer size-full bg-background p-0 text-muted-foreground hover:text-foreground hover:bg-muted backdrop-blur-3xl border border-border transition-[background-color,color,border-color,box-shadow] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]">
                       <IconComponent className="size-full rounded-sm overflow-hidden object-contain" />
                     </DockIcon>
                   </a>
@@ -156,7 +153,7 @@ export default function Navbar() {
               onClick={togglePjTheme}
             >
               <DockIcon
-                className={`rounded-3xl cursor-pointer size-full bg-background p-0 text-muted-foreground hover:text-foreground hover:bg-muted backdrop-blur-3xl border border-border transition-colors ${
+                className={`rounded-3xl cursor-pointer size-full bg-background p-0 text-muted-foreground hover:text-foreground hover:bg-muted backdrop-blur-3xl border border-border transition-[background-color,color,border-color,box-shadow] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
                   isPjThemeEnabled ? "ring-2 ring-primary/60" : ""
                 }`}
               >
@@ -219,7 +216,7 @@ export default function Navbar() {
         />
         <Tooltip>
           <TooltipTrigger asChild>
-            <DockIcon className="rounded-3xl cursor-pointer size-full bg-background p-0 text-muted-foreground hover:text-foreground hover:bg-muted backdrop-blur-3xl border border-border transition-colors">
+            <DockIcon className="rounded-3xl cursor-pointer size-full bg-background p-0 text-muted-foreground hover:text-foreground hover:bg-muted backdrop-blur-3xl border border-border transition-[background-color,color,border-color,box-shadow] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]">
               <ModeToggle className="size-full cursor-pointer" />
             </DockIcon>
           </TooltipTrigger>

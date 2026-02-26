@@ -83,15 +83,17 @@ export default function RootLayout({
             <div className="absolute inset-0 top-0 left-0 right-0 h-[100px] overflow-hidden z-0">
               <FlickeringGrid
                 className="h-full w-full"
-                squareSize={2}
-                gridGap={2}
+                squareSize={4}
+                gridGap={5}
+                flickerChance={0.12}
+                maxOpacity={0.18}
                 style={{
                   maskImage: "linear-gradient(to bottom, black, transparent)",
                   WebkitMaskImage: "linear-gradient(to bottom, black, transparent)",
                 }}
               />
             </div>
-            <div className="relative z-10 max-w-2xl mx-auto py-12 pb-24 sm:py-24 px-6">
+            <div className="relative z-10 w-full py-12 pb-24 sm:py-24 px-4 sm:px-6 lg:px-10 xl:px-14">
               {children}
             </div>
             <Navbar />

@@ -2,7 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { motion, type MotionValue, useMotionValue, useSpring, useTransform } from "motion/react";
-import { createContext, useContext, useRef, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from "react";
 
 interface DockProps {
   className?: string;
@@ -16,12 +16,12 @@ interface DockIconProps {
   children?: ReactNode;
 }
 
-const DEFAULT_MAGNIFICATION = 60;
-const DEFAULT_DISTANCE = 100;
+const DEFAULT_MAGNIFICATION = 52;
+const DEFAULT_DISTANCE = 80;
 const BASE_SIZE = 40;
 const BASE_ICON_SIZE = 20;
 const ICON_SIZE_RATIO = 0.5;
-const SPRING = { mass: 0.1, stiffness: 150, damping: 12 };
+const SPRING = { mass: 0.16, stiffness: 110, damping: 18 };
 
 interface DockContextValue {
   mouseX: MotionValue<number>;
@@ -33,11 +33,38 @@ const DockContext = createContext<DockContextValue | null>(null);
 
 const Dock = ({ className, children, magnification = DEFAULT_MAGNIFICATION, distance = DEFAULT_DISTANCE }: DockProps) => {
   const mouseX = useMotionValue(Infinity);
+  const [isThemeTransitioning, setIsThemeTransitioning] = useState(false);
+
+  useEffect(() => {
+    const root = document.documentElement;
+
+    const syncTransitionState = () => {
+      const transitioning = root.classList.contains("theme-transitioning");
+      setIsThemeTransitioning(transitioning);
+      if (transitioning) {
+        mouseX.set(Infinity);
+      }
+    };
+
+    syncTransitionState();
+
+    const observer = new MutationObserver(syncTransitionState);
+    observer.observe(root, { attributes: true, attributeFilter: ["class"] });
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [mouseX]);
 
   return (
     <DockContext.Provider value={{ mouseX, magnification, distance }}>
       <motion.div
-        onMouseMove={(e) => mouseX.set(e.pageX)}
+        onMouseMove={(e) => {
+          if (isThemeTransitioning) {
+            return;
+          }
+          mouseX.set(e.pageX);
+        }}
         onMouseLeave={() => mouseX.set(Infinity)}
         className={cn("mx-auto w-max h-full flex items-end justify-center overflow-visible rounded-full border", className)}
       >
