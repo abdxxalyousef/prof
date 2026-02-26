@@ -315,6 +315,782 @@
     box-shadow: 0 16px 28px -14px color-mix(in oklch, var(--primary) 60%, transparent);
   }
 
+  .pj-chat-shell,
+  .pj-chat-trigger {
+    position: relative;
+    overflow: hidden;
+    box-shadow:
+      0 16px 38px -22px color-mix(in oklch, var(--foreground) 45%, transparent),
+      0 0 0 1px color-mix(in oklch, var(--border) 88%, transparent) inset;
+  }
+
+  .pj-chat-panel-enter {
+    animation: pj-chat-pop-in 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .pj-chat-panel-exit {
+    animation: pj-chat-pop-out 340ms cubic-bezier(0.4, 0, 1, 1) both;
+  }
+
+  .pj-chat-trigger-btn {
+    transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease, background-color 200ms ease;
+  }
+
+  .pj-chat-trigger-idle {
+    animation: pj-chat-trigger-float 6.8s ease-in-out infinite;
+  }
+
+  .pj-chat-trigger-open {
+    animation: none;
+    transform: translateY(-1px) scale(1.02);
+    border-color: color-mix(in oklch, var(--ring) 35%, var(--border));
+    box-shadow:
+      0 20px 30px -20px color-mix(in oklch, var(--foreground) 55%, transparent),
+      0 0 0 1px color-mix(in oklch, var(--ring) 26%, transparent) inset;
+  }
+
+  .pj-chat-luxe-panel {
+    border-color: color-mix(in oklch, var(--border) 70%, var(--ring));
+    background:
+      radial-gradient(circle at 15% 12%, color-mix(in oklch, var(--muted) 26%, transparent), transparent 42%),
+      radial-gradient(circle at 88% 88%, color-mix(in oklch, var(--secondary) 22%, transparent), transparent 46%),
+      linear-gradient(165deg, color-mix(in oklch, var(--card) 94%, transparent), color-mix(in oklch, var(--background) 90%, transparent));
+    box-shadow:
+      0 20px 44px -30px color-mix(in oklch, var(--foreground) 38%, transparent),
+      0 0 0 1px color-mix(in oklch, var(--border) 85%, transparent) inset,
+      0 0 24px -24px color-mix(in oklch, var(--foreground) 24%, transparent);
+    transition: box-shadow 220ms ease, border-color 220ms ease, transform 220ms ease;
+  }
+
+  .pj-chat-luxe-panel:hover {
+    transform: translateY(0px);
+    box-shadow:
+      0 22px 42px -28px color-mix(in oklch, var(--foreground) 40%, transparent),
+      0 0 0 1px color-mix(in oklch, var(--border) 85%, transparent) inset,
+      0 0 20px -24px color-mix(in oklch, var(--foreground) 22%, transparent);
+  }
+
+  .pj-chat-pop-item {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  .pj-chat-panel-enter .pj-chat-pop-item {
+    animation: pj-chat-item-in 320ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  .pj-pop-delay-1 {
+    animation-delay: 60ms;
+  }
+
+  .pj-pop-delay-2 {
+    animation-delay: 110ms;
+  }
+
+  .pj-pop-delay-3 {
+    animation-delay: 150ms;
+  }
+
+  .pj-pop-delay-4 {
+    animation-delay: 190ms;
+  }
+
+  .pj-chat-luxe-title {
+    text-shadow: 0 1px 0 color-mix(in oklch, var(--background) 65%, transparent);
+  }
+
+  .pj-chat-bubble-assistant,
+  .pj-chat-bubble-user {
+    box-shadow: 0 8px 20px -18px color-mix(in oklch, var(--foreground) 52%, transparent);
+  }
+
+  .pj-chat-bubble-assistant {
+    background: linear-gradient(180deg, color-mix(in oklch, var(--muted) 82%, var(--card)), color-mix(in oklch, var(--muted) 66%, var(--background)));
+  }
+
+  .pj-chat-bubble-user {
+    background: linear-gradient(180deg, color-mix(in oklch, var(--secondary) 78%, var(--card)), color-mix(in oklch, var(--secondary) 64%, var(--background)));
+    border-color: color-mix(in oklch, var(--border) 82%, var(--foreground));
+  }
+
+  .pj-chat-chip {
+    background: linear-gradient(180deg, color-mix(in oklch, var(--muted) 72%, var(--card)), color-mix(in oklch, var(--muted) 58%, var(--background)));
+    border-color: color-mix(in oklch, var(--border) 84%, var(--foreground));
+    transition: transform 160ms ease, border-color 160ms ease, background-color 160ms ease;
+  }
+
+  .pj-chat-btn {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .pj-chat-btn::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(120deg, transparent, color-mix(in oklch, white 12%, transparent), transparent);
+    transform: translateX(-120%);
+    transition: transform 520ms ease;
+    pointer-events: none;
+  }
+
+  .pj-chat-btn:hover::after {
+    transform: translateX(120%);
+  }
+
+  .pj-chat-chip:hover:not(:disabled) {
+    transform: translateY(-1px);
+    border-color: color-mix(in oklch, var(--foreground) 18%, var(--border));
+  }
+
+  .pj-chat-chip:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+
+  .pj-chat-input {
+    border-color: color-mix(in oklch, var(--border) 84%, var(--foreground));
+    box-shadow: inset 0 1px 0 color-mix(in oklch, var(--background) 42%, transparent);
+    transition: border-color 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
+  }
+
+  .pj-chat-input:focus {
+    border-color: color-mix(in oklch, var(--foreground) 22%, var(--border));
+    box-shadow:
+      0 0 0 2px color-mix(in oklch, var(--foreground) 10%, transparent),
+      inset 0 1px 0 color-mix(in oklch, var(--background) 42%, transparent);
+  }
+
+  .pj-chat-send {
+    position: relative;
+    overflow: hidden;
+    border-color: color-mix(in oklch, var(--foreground) 22%, var(--border));
+    background:
+      linear-gradient(180deg, color-mix(in oklch, var(--secondary) 86%, var(--card)), color-mix(in oklch, var(--secondary) 72%, var(--background)));
+    color: color-mix(in oklch, var(--foreground) 88%, black 12%);
+    box-shadow:
+      0 10px 20px -16px color-mix(in oklch, var(--foreground) 24%, transparent),
+      inset 0 1px 0 color-mix(in oklch, var(--background) 60%, transparent);
+    transition: transform 160ms ease, border-color 160ms ease, background-color 160ms ease, box-shadow 220ms ease;
+  }
+
+  .pj-chat-send:not(:disabled) {
+    animation: none;
+  }
+
+  .pj-chat-send:not(:disabled) .pj-chat-send-inner {
+    animation: none;
+  }
+
+  .pj-chat-send-inner {
+    position: relative;
+    z-index: 3;
+    transition: transform 180ms ease;
+  }
+
+  .pj-chat-send-glow,
+  .pj-chat-send-shine {
+    position: absolute;
+    pointer-events: none;
+  }
+
+  .pj-chat-send-glow {
+    inset: -24%;
+    z-index: 1;
+    background: radial-gradient(circle at 50% 90%, color-mix(in oklch, var(--ring) 38%, transparent), transparent 62%);
+    opacity: 0;
+    transform: scale(0.82);
+    transition: opacity 220ms ease, transform 260ms ease;
+  }
+
+  .pj-chat-send-shine {
+    z-index: 2;
+    inset: -40% -70%;
+    background: linear-gradient(115deg, transparent 35%, color-mix(in oklch, white 42%, transparent) 50%, transparent 65%);
+    transform: translateX(-70%) rotate(4deg);
+    transition: transform 520ms ease;
+  }
+
+  .pj-chat-send:hover {
+    border-color: color-mix(in oklch, var(--foreground) 30%, var(--border));
+    background:
+      linear-gradient(180deg, color-mix(in oklch, var(--muted) 88%, var(--card)), color-mix(in oklch, var(--muted) 76%, var(--background)));
+    box-shadow:
+      0 12px 20px -16px color-mix(in oklch, var(--foreground) 20%, transparent),
+      inset 0 1px 0 color-mix(in oklch, var(--background) 60%, transparent);
+  }
+
+  .pj-chat-send:hover:not(:disabled) .pj-chat-send-inner {
+    transform: translateY(-0.5px) scale(1.01);
+  }
+
+  .pj-chat-send:hover:not(:disabled) .pj-chat-send-glow {
+    opacity: 0.58;
+    transform: scale(0.96);
+  }
+
+  .pj-chat-send:hover:not(:disabled) .pj-chat-send-shine {
+    transform: translateX(52%) rotate(4deg);
+  }
+
+  .pj-chat-send:active:not(:disabled) {
+    transform: translateY(1px) scale(0.97);
+  }
+
+  .pj-chat-send:active:not(:disabled) .pj-chat-send-inner {
+    transform: translateY(0px) scale(0.98);
+  }
+
+  .pj-chat-send:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    filter: grayscale(0.06);
+  }
+
+  .pj-chat-send-attention {
+    animation:
+      pj-chat-send-shake 360ms cubic-bezier(0.36, 0.07, 0.19, 0.97),
+      pj-chat-send-alert 520ms ease;
+  }
+
+  .pj-chat-input-attention {
+    animation: pj-chat-input-alert 520ms ease;
+    border-color: color-mix(in oklch, var(--ring) 55%, var(--border));
+    box-shadow:
+      0 0 0 2px color-mix(in oklch, var(--ring) 22%, transparent),
+      inset 0 1px 0 color-mix(in oklch, var(--background) 42%, transparent);
+  }
+
+  .pj-chat-send:disabled .pj-chat-send-shine,
+  .pj-chat-send:disabled .pj-chat-send-glow {
+    opacity: 0;
+    transform: none;
+  }
+
+  :root:not(.dark) .pj-chat-luxe-panel {
+    border-color: color-mix(in oklch, var(--border) 84%, var(--foreground));
+    background:
+      radial-gradient(circle at 16% 10%, color-mix(in oklch, var(--foreground) 8%, transparent), transparent 42%),
+      radial-gradient(circle at 84% 90%, color-mix(in oklch, var(--muted) 16%, transparent), transparent 46%),
+      linear-gradient(165deg, color-mix(in oklch, white 94%, var(--card)), color-mix(in oklch, white 89%, var(--background)));
+    box-shadow:
+      0 22px 40px -30px color-mix(in oklch, var(--foreground) 20%, transparent),
+      0 0 0 1px color-mix(in oklch, var(--foreground) 7%, transparent) inset,
+        0 0 18px -18px color-mix(in oklch, var(--foreground) 16%, transparent);
+  }
+
+  :root:not(.dark) .pj-chat-luxe-title {
+    color: color-mix(in oklch, var(--foreground) 90%, black 10%);
+  }
+
+  :root:not(.dark) .pj-chat-bubble-assistant {
+    background: linear-gradient(180deg, color-mix(in oklch, white 95%, var(--muted)), color-mix(in oklch, white 90%, var(--muted)));
+    border-color: color-mix(in oklch, var(--border) 90%, var(--foreground));
+    color: color-mix(in oklch, var(--foreground) 92%, black 8%);
+  }
+
+  :root:not(.dark) .pj-chat-bubble-user {
+    background: linear-gradient(180deg, color-mix(in oklch, var(--secondary) 88%, white 12%), color-mix(in oklch, var(--secondary) 78%, white 22%));
+    border-color: color-mix(in oklch, var(--border) 86%, var(--foreground));
+    color: color-mix(in oklch, var(--foreground) 92%, black 8%);
+  }
+
+  :root:not(.dark) .pj-chat-chip {
+    background: linear-gradient(180deg, color-mix(in oklch, white 94%, var(--muted)), color-mix(in oklch, white 88%, var(--muted)));
+    border-color: color-mix(in oklch, var(--border) 86%, var(--foreground));
+    color: color-mix(in oklch, var(--muted-foreground) 88%, var(--foreground));
+  }
+
+  :root:not(.dark) .pj-chat-chip:hover:not(:disabled) {
+    border-color: color-mix(in oklch, var(--foreground) 20%, var(--border));
+    background: linear-gradient(180deg, color-mix(in oklch, white 97%, var(--muted)), color-mix(in oklch, white 90%, var(--muted)));
+  }
+
+  :root:not(.dark) .pj-chat-input {
+    background: color-mix(in oklch, white 97%, var(--background));
+    border-color: color-mix(in oklch, var(--border) 84%, var(--foreground));
+  }
+
+  :root:not(.dark) .pj-chat-input:focus {
+    border-color: color-mix(in oklch, var(--foreground) 20%, var(--border));
+    box-shadow:
+      0 0 0 2px color-mix(in oklch, var(--foreground) 9%, transparent),
+      inset 0 1px 0 color-mix(in oklch, white 75%, transparent);
+  }
+
+  :root:not(.dark) .pj-chat-send {
+    border-color: color-mix(in oklch, var(--foreground) 16%, var(--border));
+    background:
+      linear-gradient(180deg, color-mix(in oklch, var(--secondary) 98%, white 2%), color-mix(in oklch, var(--secondary) 90%, var(--card)));
+    color: color-mix(in oklch, var(--foreground) 88%, black 12%);
+    box-shadow:
+      0 10px 18px -16px color-mix(in oklch, var(--foreground) 18%, transparent),
+      inset 0 1px 0 color-mix(in oklch, white 66%, transparent);
+  }
+
+  :root:not(.dark) .pj-chat-send:hover {
+    border-color: color-mix(in oklch, var(--foreground) 22%, var(--border));
+    background:
+      linear-gradient(180deg, color-mix(in oklch, var(--muted) 98%, white 2%), color-mix(in oklch, var(--muted) 90%, var(--card)));
+  }
+
+  .pj-chat-typing {
+    min-width: 64px;
+  }
+
+  .pj-chat-list {
+    scroll-behavior: smooth;
+  }
+
+  .pj-chat-list::-webkit-scrollbar {
+    width: 7px;
+  }
+
+  .pj-chat-list::-webkit-scrollbar-thumb {
+    background: color-mix(in oklch, var(--border) 85%, var(--ring));
+    border-radius: 9999px;
+  }
+
+  .pj-chat-msg {
+    animation: pj-chat-msg-in 260ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .pj-chat-msg-user {
+    transform-origin: right bottom;
+  }
+
+  .pj-chat-msg-assistant {
+    transform-origin: left bottom;
+  }
+
+  .pj-chat-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 9999px;
+    background: color-mix(in oklch, var(--foreground) 72%, transparent);
+    animation: pj-chat-dot 1s ease-in-out infinite;
+  }
+
+  .pj-chat-dot:nth-child(2) {
+    animation-delay: 0.14s;
+  }
+
+  .pj-chat-dot:nth-child(3) {
+    animation-delay: 0.28s;
+  }
+
+  @keyframes pj-chat-dot {
+    0%,
+    80%,
+    100% {
+      transform: translateY(0);
+      opacity: 0.35;
+    }
+    40% {
+      transform: translateY(-2px);
+      opacity: 0.95;
+    }
+  }
+
+  @keyframes pj-chat-msg-in {
+    0% {
+      opacity: 0;
+      transform: translateY(6px) scale(0.98);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @keyframes pj-chat-trigger-float {
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-1.5px);
+    }
+  }
+
+  @keyframes pj-chat-item-in {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0px);
+    }
+  }
+
+  @keyframes pj-chat-send-breathe {
+    0%,
+    100% {
+      box-shadow:
+        0 10px 20px -16px color-mix(in oklch, var(--foreground) 48%, transparent),
+        inset 0 1px 0 color-mix(in oklch, var(--background) 60%, transparent);
+    }
+    50% {
+      box-shadow:
+        0 12px 24px -16px color-mix(in oklch, var(--ring) 38%, transparent),
+        inset 0 1px 0 color-mix(in oklch, var(--background) 60%, transparent);
+    }
+  }
+
+  @keyframes pj-chat-send-icon-float {
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-1px);
+    }
+  }
+
+  @keyframes pj-chat-send-shake {
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+    20% {
+      transform: translateX(-2px);
+    }
+    40% {
+      transform: translateX(2px);
+    }
+    60% {
+      transform: translateX(-1px);
+    }
+    80% {
+      transform: translateX(1px);
+    }
+  }
+
+  @keyframes pj-chat-send-alert {
+    0% {
+      box-shadow:
+        0 0 0 0 color-mix(in oklch, var(--ring) 45%, transparent),
+        inset 0 1px 0 color-mix(in oklch, var(--background) 60%, transparent);
+    }
+    100% {
+      box-shadow:
+        0 10px 20px -16px color-mix(in oklch, var(--foreground) 48%, transparent),
+        inset 0 1px 0 color-mix(in oklch, var(--background) 60%, transparent);
+    }
+  }
+
+  @keyframes pj-chat-input-alert {
+    0% {
+      transform: translateX(0);
+      filter: saturate(1);
+    }
+    20% {
+      transform: translateX(-1px);
+    }
+    40% {
+      transform: translateX(1px);
+      filter: saturate(1.08);
+    }
+    100% {
+      transform: translateX(0);
+      filter: saturate(1);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pj-chat-send,
+    .pj-chat-send-inner,
+    .pj-chat-send-shine,
+    .pj-chat-send-glow {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+
+  @keyframes pj-chat-pop-in {
+    0% {
+      opacity: 0;
+      transform: translateY(10px) scale(0.95);
+      filter: blur(2px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      filter: blur(0);
+    }
+  }
+
+  @keyframes pj-chat-pop-out {
+    0% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      filter: blur(0);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(8px) scale(0.97);
+      filter: blur(1px);
+    }
+  }
+
+  .pj-robot-core {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.38rem;
+    width: 2.35rem;
+    height: 2rem;
+    border-radius: 0.7rem;
+    border: 1px solid color-mix(in oklch, var(--ring) 34%, var(--border));
+    background:
+      radial-gradient(circle at 20% 18%, color-mix(in oklch, white 30%, transparent), transparent 45%),
+      radial-gradient(circle at 78% 80%, color-mix(in oklch, var(--primary) 42%, transparent), transparent 58%),
+      linear-gradient(160deg, color-mix(in oklch, var(--primary) 22%, var(--card)) 0%, color-mix(in oklch, var(--card) 82%, var(--background)) 100%);
+    overflow: hidden;
+    box-shadow:
+      inset 0 0 0 1px color-mix(in oklch, var(--foreground) 8%, transparent),
+      inset 0 -10px 18px -14px color-mix(in oklch, var(--foreground) 42%, transparent),
+      0 8px 16px -12px color-mix(in oklch, var(--foreground) 45%, transparent);
+    animation: pj-robot-bob 3.2s ease-in-out infinite;
+  }
+
+  .pj-robot-core::before {
+    content: "";
+    position: absolute;
+    inset: -40% -60%;
+    background: linear-gradient(90deg, transparent 22%, color-mix(in oklch, var(--accent) 38%, transparent) 50%, transparent 78%);
+    transform: rotate(16deg);
+    animation: pj-robot-sheen 2.8s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  .pj-robot-core::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(180deg, color-mix(in oklch, white 14%, transparent) 0%, transparent 42%),
+      repeating-linear-gradient(90deg, color-mix(in oklch, var(--foreground) 8%, transparent) 0 1px, transparent 1px 4px);
+    opacity: 0.35;
+  }
+
+  .pj-robot-headshine {
+    position: absolute;
+    top: 0.2rem;
+    left: 0.35rem;
+    right: 0.35rem;
+    height: 0.22rem;
+    border-radius: 9999px;
+    background: linear-gradient(90deg, transparent 0%, color-mix(in oklch, white 60%, transparent) 50%, transparent 100%);
+    opacity: 0.7;
+    pointer-events: none;
+  }
+
+  .pj-robot-shemagh {
+    position: absolute;
+    top: 0.1rem;
+    left: 50%;
+    width: 2.72rem;
+    height: 0.78rem;
+    border-radius: 0.5rem;
+    transform: translateX(-50%);
+    border: 1px solid color-mix(in oklch, var(--accent) 42%, var(--border));
+    background:
+      repeating-linear-gradient(45deg, color-mix(in oklch, var(--accent) 63%, white 12%) 0 2px, color-mix(in oklch, white 92%, transparent) 2px 4px),
+      repeating-linear-gradient(-45deg, color-mix(in oklch, var(--accent) 60%, white 10%) 0 2px, color-mix(in oklch, white 90%, transparent) 2px 4px),
+      linear-gradient(180deg, color-mix(in oklch, white 20%, transparent), transparent 62%);
+    box-shadow:
+      0 4px 10px -8px color-mix(in oklch, var(--accent) 70%, transparent),
+      inset 0 1px 0 color-mix(in oklch, white 28%, transparent);
+    z-index: 3;
+    opacity: 0;
+    visibility: hidden;
+    animation: none;
+    overflow: visible;
+  }
+
+  .pj-robot-shemagh::before,
+  .pj-robot-shemagh::after {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+  }
+
+  .pj-robot-shemagh::before {
+    left: 0.16rem;
+    right: 0.16rem;
+    top: -0.08rem;
+    height: 0.34rem;
+    border-radius: 0.35rem;
+    border: 1px solid color-mix(in oklch, var(--accent) 38%, var(--border));
+    background:
+      linear-gradient(180deg, color-mix(in oklch, white 34%, transparent), color-mix(in oklch, white 8%, transparent)),
+      repeating-linear-gradient(45deg, color-mix(in oklch, var(--accent) 52%, white 16%) 0 2px, color-mix(in oklch, white 92%, transparent) 2px 4px);
+    box-shadow: 0 2px 6px -6px color-mix(in oklch, var(--foreground) 46%, transparent);
+  }
+
+  .pj-robot-shemagh::after {
+    left: 0.12rem;
+    right: 0.12rem;
+    bottom: -0.1rem;
+    height: 0.18rem;
+    border-radius: 0.25rem;
+    background: linear-gradient(180deg, color-mix(in oklch, var(--accent) 34%, transparent), color-mix(in oklch, var(--accent) 56%, transparent));
+    opacity: 0.72;
+  }
+
+  .pj-robot-keffiyeh {
+    position: absolute;
+    left: 50%;
+    bottom: 0.06rem;
+    width: 2.9rem;
+    height: 0.5rem;
+    border-radius: 0.4rem;
+    transform: translateX(-50%);
+    border: 1px solid color-mix(in oklch, var(--foreground) 24%, var(--border));
+    background:
+      repeating-linear-gradient(45deg, color-mix(in oklch, var(--foreground) 72%, white 12%) 0 1px, color-mix(in oklch, white 92%, transparent) 1px 3px),
+      repeating-linear-gradient(-45deg, color-mix(in oklch, var(--foreground) 72%, white 12%) 0 1px, color-mix(in oklch, white 92%, transparent) 1px 3px);
+    opacity: 0;
+    visibility: hidden;
+    z-index: 3;
+    animation: none;
+  }
+
+  .pj-robot-agal {
+    position: absolute;
+    top: 0.34rem;
+    left: 50%;
+    width: 2.45rem;
+    height: 0.14rem;
+    transform: translateX(-50%);
+    border-radius: 9999px;
+    background: linear-gradient(180deg, color-mix(in oklch, var(--foreground) 88%, black 12%), color-mix(in oklch, var(--foreground) 72%, black 28%));
+    box-shadow:
+      0 1px 0 color-mix(in oklch, white 24%, transparent),
+      0 3px 5px -4px color-mix(in oklch, black 65%, transparent);
+    z-index: 4;
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .pj-robot-tail {
+    position: absolute;
+    top: 0.55rem;
+    width: 0.38rem;
+    height: 1rem;
+    border-radius: 0.2rem;
+    border: 1px solid color-mix(in oklch, var(--foreground) 18%, var(--border));
+    background:
+      repeating-linear-gradient(45deg, color-mix(in oklch, var(--foreground) 70%, white 14%) 0 1px, color-mix(in oklch, white 90%, transparent) 1px 3px),
+      repeating-linear-gradient(-45deg, color-mix(in oklch, var(--foreground) 70%, white 14%) 0 1px, color-mix(in oklch, white 90%, transparent) 1px 3px);
+    opacity: 0;
+    visibility: hidden;
+    z-index: 2;
+    animation: none;
+  }
+
+  .pj-robot-tail-left {
+    left: 0.06rem;
+    transform-origin: top center;
+  }
+
+  .pj-robot-tail-right {
+    right: 0.06rem;
+    transform-origin: top center;
+    animation-delay: -1.6s;
+  }
+
+  :root.pj-theme .pj-robot-shemagh,
+  .dark.pj-theme .pj-robot-shemagh {
+    opacity: 1;
+    visibility: visible;
+    animation: pj-fabric-float 4.2s ease-in-out infinite;
+  }
+
+  :root.pj-theme .pj-robot-keffiyeh,
+  .dark.pj-theme .pj-robot-keffiyeh {
+    opacity: 0.95;
+    visibility: visible;
+    animation: pj-fabric-float 4.2s ease-in-out infinite;
+  }
+
+  :root.pj-theme .pj-robot-agal,
+  .dark.pj-theme .pj-robot-agal {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  :root.pj-theme .pj-robot-tail,
+  .dark.pj-theme .pj-robot-tail {
+    opacity: 0.84;
+    visibility: visible;
+    animation: pj-tail-sway 3.4s ease-in-out infinite;
+  }
+
+  .pj-robot-mouth {
+    position: absolute;
+    bottom: 0.22rem;
+    left: 50%;
+    width: 1.05rem;
+    height: 0.2rem;
+    transform: translateX(-50%);
+    border-radius: 9999px;
+    border: 1px solid color-mix(in oklch, var(--foreground) 18%, var(--border));
+    background:
+      repeating-linear-gradient(90deg, color-mix(in oklch, var(--primary) 65%, transparent) 0 1px, color-mix(in oklch, var(--card) 72%, transparent) 1px 3px),
+      linear-gradient(180deg, color-mix(in oklch, var(--card) 82%, transparent), color-mix(in oklch, var(--foreground) 14%, transparent));
+    box-shadow: inset 0 1px 0 color-mix(in oklch, white 12%, transparent);
+    opacity: 0.88;
+    z-index: 3;
+  }
+
+  @keyframes pj-robot-bob {
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-1.5px);
+    }
+  }
+
+  @keyframes pj-robot-sheen {
+    0%,
+    100% {
+      transform: translateX(-10%) rotate(16deg);
+      opacity: 0.22;
+    }
+    50% {
+      transform: translateX(10%) rotate(16deg);
+      opacity: 0.4;
+    }
+  }
+
+  @keyframes pj-fabric-float {
+    0%,
+    100% {
+      transform: translateX(-50%) translateY(0px);
+    }
+    50% {
+      transform: translateX(-50%) translateY(-0.8px);
+    }
+  }
+
+  @keyframes pj-tail-sway {
+    0%,
+    100% {
+      transform: rotate(0deg);
+    }
+    50% {
+      transform: rotate(3deg);
+    }
+  }
+
   .fx-particles {
     position: absolute;
     inset: 0;

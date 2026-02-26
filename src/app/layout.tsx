@@ -8,6 +8,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { FlickeringGrid } from "@/components/magicui/flickering-grid";
 import InteractiveEffects from "@/components/interactive-effects";
+import AiChatWidget from "@/components/ai-chat-widget";
 
 const geist = Geist({
   subsets: ["latin"],
@@ -96,6 +97,7 @@ export default function RootLayout({
             <div className="relative z-10 w-full py-12 pb-24 sm:py-24 px-4 sm:px-6 lg:px-10 xl:px-14">
               {children}
             </div>
+            <AiChatWidget />
             <Navbar />
           </TooltipProvider>
         </ThemeProvider>

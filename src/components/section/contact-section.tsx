@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { MessageCircle, Phone } from "lucide-react";
 import { FlickeringGrid } from "@/components/magicui/flickering-grid";
 import { DATA } from "@/data/resume";
 
@@ -26,18 +27,28 @@ export default function ContactSection() {
           Get in Touch
         </h2>
         <p className="mx-auto max-w-lg text-muted-foreground text-balance">
-          Want to chat? Just shoot me a dm{" "}
+          Phone: <span className="font-semibold text-foreground">+962 779 602 544</span>. WhatsApp is active now — choose how you want to reach me.
+        </p>
+
+        <div className="flex flex-wrap items-center justify-center gap-3">
           <Link
-            href="#"
+            href="https://wa.me/962779602544"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-blue-500 hover:underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-sm"
+            className="inline-flex items-center gap-2 rounded-lg bg-green-600 px-4 py-2 text-sm font-medium text-white transition-transform duration-200 hover:scale-[1.03] hover:bg-green-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
           >
-            with a direct question
-          </Link>{" "}
-          and I&apos;ll respond whenever I can. I will ignore all
-          soliciting.
-        </p>
+            <MessageCircle className="h-4 w-4" />
+            WhatsApp Chat
+          </Link>
+
+          <a
+            href="tel:+962779602544"
+            className="inline-flex items-center gap-2 rounded-lg border border-border bg-card px-4 py-2 text-sm font-medium text-foreground transition-transform duration-200 hover:scale-[1.03] hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+          >
+            <Phone className="h-4 w-4" />
+            Call Now
+          </a>
+        </div>
       </div>
     </div>
   );
