@@ -44,24 +44,6 @@ function getAnswer(input: string) {
 function RobotEyes({ isOpen }: { isOpen: boolean }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
-  const [isPjThemeActive, setIsPjThemeActive] = useState(false);
-
-  useEffect(() => {
-    const root = document.documentElement;
-
-    const syncThemeState = () => {
-      setIsPjThemeActive(root.classList.contains("pj-theme"));
-    };
-
-    syncThemeState();
-
-    const observer = new MutationObserver(syncThemeState);
-    observer.observe(root, { attributes: true, attributeFilter: ["class"] });
-
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
 
   useEffect(() => {
     let raf = 0;
@@ -112,12 +94,6 @@ function RobotEyes({ isOpen }: { isOpen: boolean }) {
       className="pointer-events-none relative flex h-10 w-10 items-center justify-center"
       aria-hidden
     >
-      {isPjThemeActive ? (
-        <>
-          <span className="pj-robot-shemagh" />
-        </>
-      ) : null}
-
       <div className="pj-robot-core">
         <span className="pj-robot-headshine" />
 

@@ -9,6 +9,7 @@ import "./globals.css";
 import { FlickeringGrid } from "@/components/magicui/flickering-grid";
 import InteractiveEffects from "@/components/interactive-effects";
 import AiChatWidget from "@/components/ai-chat-widget";
+import LoaderOverlay from "@/components/loader-overlay";
 
 const geist = Geist({
   subsets: ["latin"],
@@ -73,14 +74,11 @@ export default function RootLayout({
         )}
       >
         <InteractiveEffects />
-        <div className="scroll-progress" aria-hidden />
-        <div className="scroll-aura" aria-hidden />
-        <div className="pj-theme-ribbon" aria-hidden>
-          <div className="pj-theme-ribbon__left" />
-          <div className="pj-theme-ribbon__right" />
-        </div>
+        <div className="cursor-orb" aria-hidden />
+        <div className="theme-flash" aria-hidden />
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
           <TooltipProvider delayDuration={0}>
+            <LoaderOverlay />
             <div className="absolute inset-0 top-0 left-0 right-0 h-[100px] overflow-hidden z-0">
               <FlickeringGrid
                 className="h-full w-full"
